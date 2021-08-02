@@ -1,0 +1,14 @@
+/.env
+/.nyc_output/
+/.vscode/*
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+!/.vscode/extensions.json
+/coverage/
+/dist/
+/node_modules/
+/*.tgz
+~$*.xlsx
+~$*.docx
+~$*.pptx

@@ -1,0 +1,374 @@
+{
+  "receivedValues": [
+    {
+      "timeStamp": 1617716115673,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "053372$"
+    },
+    {
+      "timeStamp": 1617716115877,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "J$"
+    },
+    {
+      "timeStamp": 1617716116082,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "=$"
+    },
+    {
+      "timeStamp": 1617716116190,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617716116389,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000010008003$"
+    },
+    {
+      "timeStamp": 1617716143115,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "J$"
+    },
+    {
+      "timeStamp": 1617716144157,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716150692,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "J$"
+    },
+    {
+      "timeStamp": 1617716154789,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716165131,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716165237,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617716165459,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000010008003$"
+    },
+    {
+      "timeStamp": 1617716170867,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617716171071,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000020008004$"
+    },
+    {
+      "timeStamp": 1617716172095,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000030008005$"
+    },
+    {
+      "timeStamp": 1617716173119,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000040008006$"
+    },
+    {
+      "timeStamp": 1617716174275,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000050008007$"
+    },
+    {
+      "timeStamp": 1617716175270,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000060008008$"
+    },
+    {
+      "timeStamp": 1617716176398,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000070008009$"
+    },
+    {
+      "timeStamp": 1617716177420,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716189196,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10010=14<11$"
+    },
+    {
+      "timeStamp": 1617716189503,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716195853,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?1001083481:$"
+    },
+    {
+      "timeStamp": 1617716196061,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716201895,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?1001005111:$"
+    },
+    {
+      "timeStamp": 1617716202210,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716208147,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?1001076=>1;$"
+    },
+    {
+      "timeStamp": 1617716208448,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716214082,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10010?7=;11$"
+    },
+    {
+      "timeStamp": 1617716214387,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716228825,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?100109;>51:$"
+    },
+    {
+      "timeStamp": 1617716229030,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617716234867,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?100100=8<14$"
+    },
+    {
+      "timeStamp": 1617716235174,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722628941,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "053372$"
+    },
+    {
+      "timeStamp": 1617722629237,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "J$"
+    },
+    {
+      "timeStamp": 1617722629443,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "=$"
+    },
+    {
+      "timeStamp": 1617722629548,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617722629749,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000010008003$"
+    },
+    {
+      "timeStamp": 1617722634460,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617722634664,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000020008004$"
+    },
+    {
+      "timeStamp": 1617722635688,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000030008005$"
+    },
+    {
+      "timeStamp": 1617722636815,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000040008006$"
+    },
+    {
+      "timeStamp": 1617722637852,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000050008007$"
+    },
+    {
+      "timeStamp": 1617722638863,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000060008008$"
+    },
+    {
+      "timeStamp": 1617722639992,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000070008009$"
+    },
+    {
+      "timeStamp": 1617722641014,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722814994,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "053372$"
+    },
+    {
+      "timeStamp": 1617722815100,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "J$"
+    },
+    {
+      "timeStamp": 1617722815301,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "=$"
+    },
+    {
+      "timeStamp": 1617722815506,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617722815711,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000010008003$"
+    },
+    {
+      "timeStamp": 1617722820524,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "T$"
+    },
+    {
+      "timeStamp": 1617722820728,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000020008004$"
+    },
+    {
+      "timeStamp": 1617722821752,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000030008005$"
+    },
+    {
+      "timeStamp": 1617722822776,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000040008006$"
+    },
+    {
+      "timeStamp": 1617722823903,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000050008007$"
+    },
+    {
+      "timeStamp": 1617722824824,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000060008008$"
+    },
+    {
+      "timeStamp": 1617722825848,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000070008009$"
+    },
+    {
+      "timeStamp": 1617722826884,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722832408,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?1000024=51:$"
+    },
+    {
+      "timeStamp": 1617722832607,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722838039,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10000855?13$"
+    },
+    {
+      "timeStamp": 1617722838342,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722843871,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10000?6>61;$"
+    },
+    {
+      "timeStamp": 1617722844076,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722849402,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10000581414$"
+    },
+    {
+      "timeStamp": 1617722849605,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722854828,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?10000:9;;1;$"
+    },
+    {
+      "timeStamp": 1617722855035,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722860460,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?100000;1:18$"
+    },
+    {
+      "timeStamp": 1617722860665,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    },
+    {
+      "timeStamp": 1617722866809,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?100009<;113$"
+    },
+    {
+      "timeStamp": 1617722867024,
+      "topic": "Home/carrera/track/Encoded/Value",
+      "value": "?:0000000000008002$"
+    }
+  ]
+}
