@@ -1,7 +1,7 @@
-#What is this?
+# What is this?
 Using these resources it is possible to build a small module that translates serial data transmitted by a Carrera Control Unit into mqtt messages.
 
-##Motivation
+## Motivation
 I was already using an app called [SmartRace](https://www.smartrace.de/) to communicate with the Carrera track using their bluetooth module.
 The main purpose of the app is to organize races and to track lap times.
 There are additional features that are very useful, e.g. providing driver, car and track management and a lot of settings for the cars.
@@ -20,12 +20,12 @@ The module itself should be directly connected to the carrera track, so no addit
 
 This is the result of my work.
 
-#Architecture
+# Architecture
 This project consists of three parts:
 - Arduino source code that will run on an ESP32 micro controller communicating with the Carrera track and a mqtt broker
 - A nodejs script that receives encrypted Carrera messages, decrypts them and publishes the decoded data using mqtt
 - A circuit diagram that shows how to connect the ESP32 to the Carrera track
 
-##TODO diagram of components
+## TODO diagram of components
 
 ## TODO project setup (broker, arduino, node, typescript, credentials...)
