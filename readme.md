@@ -44,6 +44,8 @@ So this is why I used a kit to level shift the logical signals from 3.3V to 5V.
 I am sure there are better and more efficient ways to accomplish that. But hey, it works.
 
 TODO were to get the fritzing parts
+TODO p2c cable
+TODO attention 
 
 ![layout](<./images/breadboard.png>)
 
