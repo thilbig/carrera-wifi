@@ -103,7 +103,8 @@ This lead to a simple (and very ugly) overview page displaying some basic inform
 
 ![openhab](<./images/openhab.png>)
 
-For a far better visualization of a race I am using [grafana](https://grafana.com/) this makes graphs like the following one showing a race against my son (and a ghostcar) possible.
+For a far better visualization of a race I am using [grafana](https://grafana.com/).
+This makes graphs like the following one showing a race against my son (and a ghostcar) possible.
 
 ![openhab](<./images/grafana_lap_times.png>)
 
