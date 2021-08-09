@@ -43,9 +43,18 @@ I don't have much experience designing circuit diagrams, so I like to use separa
 So this is why I used a kit to level shift the logical signals from 3.3V to 5V.
 I am sure there are better and more efficient ways to accomplish that. But hey, it works.
 
-TODO were to get the fritzing parts
-TODO p2c cable
-TODO attention 
+To connect the board to the Carrera track a so called mini din connector is needed, they look similar to the ps2 cables used by old keyboards ore mouses but differ in the number of connected pins.
+A very good description of the connector and the usages of each of the pins can be found [here](http://slotbaer.de/carrera-digital-124-132/10-cu-rundenzaehler-protokoll.html) (german).
+This excellent page also describes the serial and the bluetooth protocol, so my work is based on the researches of Stephan Heß aka slotbaer.
+Slotbaer also warns that if the wrong pins are used it may happen that the serial pin gets directly connected to the supply voltage which will damage the Control Unit.
+So pay attention when wiring the hardware, I am not responsible if anything goes wrong! 
+
+I used some parts that do not belong to the default fritzing library. 
+It may be necessary to add them to your library on your one. 
+They can be found here:
+
+* Wemos ESP32: [here](https://forum.fritzing.org/t/doit-esp32-devkit-v1-30-pin/8443/4)
+* Level converter: [here](https://forum.fritzing.org/t/4-x-5v-to-3-3v-logic-level-converter/3395)
 
 ![layout](<./images/breadboard.png>)
 
@@ -62,13 +71,49 @@ To provide the WIFI credentials and the location of your MQTT broker create a fi
 #define MQTT_NAME    "mqtt_name"
 ```
 
- TODO additional libraries 
+To build the arduino code you need to install the library `EspMQTTClient` using the build in library manager or from [here](https://github.com/plapointe6/EspMQTTClient). 
+This library is responsible for the communication with the MQTT Broker and simplifies the code a lot.
 
 ## Message decoder
-TODO Typescript, nodejs, winserv, tests, additional database, ...
+The serial messages received from the Carrea track are not decoded directly on the hardware, instead I implemented a service that takes care of that task.
+This service is implemented as a node script and written in Typescript, the source code can be found in the `carrera-mqtt` folder.
+To run and build this service a standard nodejs environment is needed and all the dependencies must be installed.
+After the nodejs environment works a typical `npm install` should take care of resolving all the dependencies. 
 
-# Conclusion
-Database using openhab and influxdb.
+The `carrera-mqtt` decoder receives encoded messages via MQTT, decodes them and publishes the decoded results.
+For example our custom hardware receives the messages `?20000<4551=$` from the Carrera track. 
+This message means that the car with the id `2` crossed the start/finish line `19541` after the race was started.
+The decoder received this data package using the topic `Home/carrera/track/Encoded/#` and publishes the decoded data using the topic `Home/carrera/Car/2/LastLapTime`.
+More examples can be found in the `*.spec` files that test the code, a description of the single messages and their meanings can again be found on [slotbaer's page](http://slotbaer.de/carrera-digital-124-132/10-cu-rundenzaehler-protokoll.html).
+
+The Carrera Control Unit does NOT provide information about the current leader or the last lap time. 
+Only information *which* care crossed the start/finish line *when* (relative to the start of the race).
+To gather this additional information (and to publish it using MQTT) some additional processing is required. 
+A full list of available information and the corresponding topics can be found in the spec file `race-manager.spec.ts` in the `initialMqttMessages` area.
+
+The decoder service is designed to run as a service on a Windows machine, using a library called `winser`.
+To install the decoder as a Windows service call the command `install-windows-service` with admin privileges.
+
+For demo purposes and initial testing I collected some encoded messages in a database (using the package lowdb).
+This approach can be continued to store the decoded values as well, but I am using a different approach described in the next section.
+
+# Visualization
+To store and visualize the data I am using my smart home central ([openhab](https://www.openhab.org/)) and the connected database ([influxdb](https://www.influxdata.com/)).
+This lead to a simple (and very ugly) overview page displaying some basic information:
+
+![openhab](<./images/openhab.png>)
+
+For a far better visualization of a race I am using [grafana](https://grafana.com/) this makes graphs like the following one showing a race against my son (and a ghostcar) possible.
+
+![openhab](<./images/grafana_lap_times.png>)
+
+# Improvements
+There is always room for improvements. Some ideas immediately come to my mind:
+* A better hardware using smaller parts
+* Design and build a case for the hardware
+* Finish the open TODOs in the arduino and nodejs code
+* Enable two way communication with the Carrera track; e.g. start a race using MQTT messages
 
 # Thanks
-Link to protocol page
+Without slotbaer's work this wouldn't be possible. 
+So many thanks for reverse engineering the protocol and sharing it!
