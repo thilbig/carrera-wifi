@@ -1,5 +1,5 @@
 # What is this?
-Using these resources it is possible to build a small module that translates serial data transmitted by a Carrera Control Unit into mqtt messages.
+Using these resources it is possible to build a small module that translates serial data transmitted by a Carrera Control Unit (CCU) into mqtt messages.
 
 ## Motivation
 I was already using an app called [SmartRace](https://www.smartrace.de/) to communicate with the Carrera track using their bluetooth module.
@@ -22,7 +22,7 @@ This is the result of my work.
 
 # Architecture
 This project consists of three parts:
-- Arduino source code that will run on an ESP32 micro controller communicating with the Carrera track and a MQTT Broker
+- Arduino source code that will run on an ESP32 micro controller communicating with the CCU a MQTT Broker
 - A nodejs script that receives encrypted Carrera messages, decrypts them and publishes the decoded data using MQTT
 - A circuit diagram that shows how to connect the ESP32 to the Carrera track
 
@@ -37,20 +37,20 @@ No special settings (security, encryption, ...) are needed.
 ## Hardware
 Of course, you need the hardware to communicate with the Carrera track using their serial protocol.
 The needed circuit diagrams can be found as [fritzing](https://fritzing.org/) files in the `pcb` folder.
-I love to use ESP32 controllers for my projects, especially the `Wemos Mini D1 ESP32 Kit`.
+I love to use ESP32 controllers for my projects, especially the Wemos Mini D1 ESP32 Kit.
 To avoid the additional and unneeded drill holes there is a second diagram using placeholders instead the ESP32 kit.
-I don't have much experience designing circuit diagrams, so I like to use separated modules for the single tasks.
+I don't have much experience designing circuit diagrams, but I like to use separated modules for the single tasks.
 So this is why I used a kit to level shift the logical signals from 3.3V to 5V.
 I am sure there are better and more efficient ways to accomplish that. But hey, it works.
 
-To connect the board to the Carrera track a so called mini din connector is needed, they look similar to the ps2 cables used by old keyboards ore mouses but differ in the number of connected pins.
+To connect the board to the CCU a so called "mini din connector" is needed, they look similar to the ps2 cables used by old keyboards ore mouses but differ in the number of connected pins.
 A very good description of the connector and the usages of each of the pins can be found [here](http://slotbaer.de/carrera-digital-124-132/10-cu-rundenzaehler-protokoll.html) (german).
-This excellent page also describes the serial and the bluetooth protocol, so my work is based on the researches of Stephan Heß aka slotbaer.
+This excellent page also describes the serial and the bluetooth protocol, so my work is based on the researches described by Stephan Heß aka slotbaer.
 Slotbaer also warns that if the wrong pins are used it may happen that the serial pin gets directly connected to the supply voltage which will damage the Control Unit.
 So pay attention when wiring the hardware, I am not responsible if anything goes wrong! 
 
 I used some parts that do not belong to the default fritzing library. 
-It may be necessary to add them to your library on your one. 
+It may be necessary to add them to your library on your own. 
 They can be found here:
 
 * Wemos ESP32: [here](https://forum.fritzing.org/t/doit-esp32-devkit-v1-30-pin/8443/4)
@@ -75,13 +75,13 @@ To build the arduino code you need to install the library `EspMQTTClient` using 
 This library is responsible for the communication with the MQTT Broker and simplifies the code a lot.
 
 ## Message decoder
-The serial messages received from the Carrea track are not decoded directly on the hardware, instead I implemented a service that takes care of that task.
+The serial messages received from the CCU are not decoded directly on the hardware, instead I implemented a service that takes care of that.
 This service is implemented as a node script and written in Typescript, the source code can be found in the `carrera-mqtt` folder.
 To run and build this service a standard nodejs environment is needed and all the dependencies must be installed.
 After the nodejs environment works a typical `npm install` should take care of resolving all the dependencies. 
 
 The `carrera-mqtt` decoder receives encoded messages via MQTT, decodes them and publishes the decoded results.
-For example our custom hardware receives the messages `?20000<4551=$` from the Carrera track. 
+For example our custom hardware receives the message `?20000<4551=$` from the CCU. 
 This message means that the car with the id `2` crossed the start/finish line `19541` after the race was started.
 The decoder received this data package using the topic `Home/carrera/track/Encoded/#` and publishes the decoded data using the topic `Home/carrera/Car/2/LastLapTime`.
 More examples can be found in the `*.spec` files that test the code, a description of the single messages and their meanings can again be found on [slotbaer's page](http://slotbaer.de/carrera-digital-124-132/10-cu-rundenzaehler-protokoll.html).
@@ -104,7 +104,7 @@ This lead to a simple (and very ugly) overview page displaying some basic inform
 ![openhab](<./images/openhab.png>)
 
 For a far better visualization of a race I am using [grafana](https://grafana.com/).
-This makes graphs like the following one showing a race against my son (and a ghostcar) possible.
+This makes graphs like the following one visualizing the lap times of a race against my son (and a ghostcar) possible.
 
 ![openhab](<./images/grafana_lap_times.png>)
 
