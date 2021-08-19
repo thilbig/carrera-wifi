@@ -58,7 +58,7 @@ They can be found here:
 
 ![layout](<./images/breadboard.png>)
 
-![pcb](<./images/pcb.png>)
+![pcb](<./images/final_hardware.jpg>)
 
 ## Arduino Code
 The code for the ESP32 can be found in the `carrera-ble-server-with-wifi` folder.
