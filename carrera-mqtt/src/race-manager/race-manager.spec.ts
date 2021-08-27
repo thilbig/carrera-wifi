@@ -305,4 +305,65 @@ describe("race manager", () => {
       )).to.be.eql(initialMqttMessages)
     })
   })
+
+  describe("leading car", () => {
+    const raceManager: RaceManager = new RaceManager()
+
+    it("should not have a leading car when car two crosses line after 1000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 2 crosses line", 0, 2, 1000, 1)
+      )).to.be.eql([])
+
+      expect(raceManager.race.leadingCar).to.be.undefined
+    })
+
+    it("should not have a leading car when car one crosses line after 1500ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 1 crosses line", 0, 1, 1500, 1)
+      )).to.be.eql([])
+
+      expect(raceManager.race.leadingCar).to.be.undefined
+    })
+
+    it("should have car two as leading car when car two crosses line after 2000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 2 crosses line", 0, 2, 2000, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/2/NumberOfLaps", "1"),
+        new MqttValue("Home/carrera/Car/2/LastLapTime", "1000"),
+        new MqttValue("Home/carrera/Car/2/TimeOfFastestLap", "1000"),
+        new MqttValue("Home/carrera/Car/2/NumberOfFastestLap", "1"),
+        new MqttValue("Home/carrera/Race/1/FastestCar", "2"),
+        new MqttValue("Home/carrera/Race/1/FastestLapTime", "1000"),
+        new MqttValue("Home/carrera/Race/1/LeadingCar", "2"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(2)
+    })
+
+    it("should still have car two as leading car when car one crosses line after 3000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 1 crosses line", 0, 1, 3000, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/1/NumberOfLaps", "1"),
+        new MqttValue("Home/carrera/Car/1/LastLapTime", "1500"),
+        new MqttValue("Home/carrera/Car/1/TimeOfFastestLap", "1500"),
+        new MqttValue("Home/carrera/Car/1/NumberOfFastestLap", "1"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(2)
+    })
+
+    it("should have car one as leading car when car one crosses line after 4500ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 1 crosses line", 0, 1, 4500, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/1/NumberOfLaps", "2"),
+        new MqttValue("Home/carrera/Car/1/LastLapTime", "1500"),
+        new MqttValue("Home/carrera/Race/1/LeadingCar", "1"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(1)
+    })
+  })
 })

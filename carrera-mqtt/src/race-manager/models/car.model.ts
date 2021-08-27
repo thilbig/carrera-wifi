@@ -46,6 +46,10 @@ export class CarModel extends AUpdateableModel {
     return this.getFastestLap()?.time
   }
 
+  public get totalTime(): number {
+    return this.laps.map(x => x.time).reduce((acc: number, curr: number) => acc + curr)
+  }
+
   public constructor(public readonly id: number, public readonly type: CarType) {
     super()
   }

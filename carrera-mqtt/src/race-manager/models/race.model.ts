@@ -56,15 +56,18 @@ export class RaceModel extends AUpdateableModel {
   }
 
   public get leadingCar(): CarModel | undefined {
-    const leadingCar = this.cars.reduce((prev: CarModel, cur: CarModel) => {
-      return prev.numberOfLaps >= cur.numberOfLaps ? prev : cur
-    })
+    let leadingCar: CarModel | undefined = undefined
 
-    if (leadingCar.numberOfLaps) {
-      return leadingCar
-    } else {
-      return undefined
+    //The leading car is the one with the highest number of laps but the minimal total race time
+    for (const car of this.cars) {
+      if (car.numberOfLaps > 0) {
+        if (leadingCar === undefined || car.numberOfLaps >= leadingCar.numberOfLaps && car.totalTime < leadingCar.totalTime) {
+          leadingCar = car
+        }
+      }
     }
+
+    return leadingCar
   }
 
   public constructor(public readonly id: number) {
