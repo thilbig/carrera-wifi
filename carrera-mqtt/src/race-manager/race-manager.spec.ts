@@ -365,5 +365,50 @@ describe("race manager", () => {
 
       expect(raceManager.race.leadingCar?.id).to.be.eql(1)
     })
+
+    it("should still have car one as leading car when car three crosses line after 5000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 3 crosses line", 0, 3, 5000, 1)
+      )).to.be.eql([
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(1)
+    })
+
+    it("should still have car one as leading car when car three crosses line after 10000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 3 crosses line", 0, 3, 10000, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/3/NumberOfLaps", "1"),
+        new MqttValue("Home/carrera/Car/3/LastLapTime", "5000"),
+        new MqttValue("Home/carrera/Car/3/TimeOfFastestLap", "5000"),
+        new MqttValue("Home/carrera/Car/3/NumberOfFastestLap", "1"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(1)
+    })
+
+    it("should still have car one as leading car when car three crosses line after 15000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 3 crosses line", 0, 3, 15000, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/3/NumberOfLaps", "2"),
+        new MqttValue("Home/carrera/Car/3/LastLapTime", "5000"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(1)
+    })
+
+    it("should have car three as leading car when car three crosses line after 20000ms", () => {
+      expect(raceManager.update(
+        new GetTimeResponse("car 3 crosses line", 0, 3, 20000, 1)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/3/NumberOfLaps", "3"),
+        new MqttValue("Home/carrera/Car/3/LastLapTime", "5000"),
+        new MqttValue("Home/carrera/Race/1/LeadingCar", "3"),
+      ])
+
+      expect(raceManager.race.leadingCar?.id).to.be.eql(3)
+    })
   })
 })

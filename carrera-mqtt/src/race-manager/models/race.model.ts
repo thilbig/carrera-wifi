@@ -58,10 +58,12 @@ export class RaceModel extends AUpdateableModel {
   public get leadingCar(): CarModel | undefined {
     let leadingCar: CarModel | undefined = undefined
 
-    //The leading car is the one with the highest number of laps but the minimal total race time
     for (const car of this.cars) {
       if (car.numberOfLaps > 0) {
-        if (leadingCar === undefined || car.numberOfLaps >= leadingCar.numberOfLaps && car.totalTime < leadingCar.totalTime) {
+        if (leadingCar === undefined || //no leader found yet, treat current car as leader
+          car.numberOfLaps > leadingCar.numberOfLaps || //current car has more laps than leader => becomes the new leader
+          car.numberOfLaps === leadingCar.numberOfLaps && car.totalTime < leadingCar.totalTime //number of laps equal, but the current car has less race time
+        ) {
           leadingCar = car
         }
       }
