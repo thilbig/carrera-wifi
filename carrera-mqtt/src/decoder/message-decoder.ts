@@ -68,8 +68,16 @@ export class MessageDecoder {
   }
 
   private static decodeRaceStatusMessage(encodedMessage: string, timestamp: number): GetRaceStatusResponse {
-    const signalLightState = Number(encodedMessage[10])
-    const fuelMode = Number(encodedMessage[11])
+    const signalLightState = MessageDecoder.decode4BitValue(encodedMessage[10], 0)
+    let fuelMode = MessageDecoder.decode4BitValue(encodedMessage[11], 0)
+
+    if (fuelMode > 8) {
+      //if a lap time counter is connected "8" is added to fuelmode value
+      fuelMode -= 8
+    } else if (fuelMode > 4) {
+      //if a pit stop lane is connected "4" is added to fuelmode value
+      fuelMode -= 4
+    }
 
     if (isNaN(signalLightState) || signalLightState < 0 || signalLightState > 8) {
       throw new Error(`The value '${signalLightState}' is an invalid signal light state. It has to be 0 < x < 9`)
@@ -82,15 +90,19 @@ export class MessageDecoder {
     return new GetRaceStatusResponse(
       encodedMessage,
       timestamp,
-      MessageDecoder.decode4BitValue(encodedMessage[2], 0),
-      MessageDecoder.decode4BitValue(encodedMessage[3], 0),
-      MessageDecoder.decode4BitValue(encodedMessage[4], 0),
-      MessageDecoder.decode4BitValue(encodedMessage[5], 0),
-      MessageDecoder.decode4BitValue(encodedMessage[6], 0),
-      MessageDecoder.decode4BitValue(encodedMessage[7], 0),
+      [
+        MessageDecoder.decode4BitValue(encodedMessage[2], 0),
+        MessageDecoder.decode4BitValue(encodedMessage[3], 0),
+        MessageDecoder.decode4BitValue(encodedMessage[4], 0),
+        MessageDecoder.decode4BitValue(encodedMessage[5], 0),
+        MessageDecoder.decode4BitValue(encodedMessage[6], 0),
+        MessageDecoder.decode4BitValue(encodedMessage[7], 0),
+        0, //no fuel for ghostcar and pacecar
+        0, //no fuel for ghostcar and pacecar
+      ],
       encodedMessage[10] === "0",
-      Number(encodedMessage[10]),
-      Number(encodedMessage[11]))
+      signalLightState,
+      fuelMode)
   }
 
   private static decodeGetTimeMessage(encodedMessage: string, timestamp: number): GetTimeResponse {

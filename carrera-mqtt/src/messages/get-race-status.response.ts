@@ -10,12 +10,7 @@ export class GetRaceStatusResponse extends AMessageWithUpdates {
   public constructor(
     encodedMessage: string,
     timestamp: number,
-    public readonly fuelCar1: number,
-    public readonly fuelCar2: number,
-    public readonly fuelCar3: number,
-    public readonly fuelCar4: number,
-    public readonly fuelCar5: number,
-    public readonly fuelCar6: number,
+    public readonly carFuels: [number, number, number, number, number, number, number, number],
     public readonly isRaceActive: boolean,
     public readonly signalLigtsState: number,
     public readonly fuelMode: FuelMode) {
@@ -23,6 +18,6 @@ export class GetRaceStatusResponse extends AMessageWithUpdates {
   }
 
   public toString(): string {
-    return `race active: ${this.isRaceActive}, signals: ${this.signalLigtsState}, fuel mode: ${this.fuelMode} fuels: [${this.fuelCar1}, ${this.fuelCar2}, ${this.fuelCar3}, ${this.fuelCar4}, ${this.fuelCar5}, ${this.fuelCar6}]`
+    return `race active: ${this.isRaceActive}, signals: ${this.signalLigtsState}, fuel mode: ${this.fuelMode} fuels: [${this.carFuels[0]}, ${this.carFuels[1]}, ${this.carFuels[2]}, ${this.carFuels[3]}, ${this.carFuels[4]}, ${this.carFuels[5]}]`
   }
 }

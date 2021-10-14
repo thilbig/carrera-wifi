@@ -2,6 +2,7 @@ import {MqttValue} from "../../mqtt/models/mqtt-value";
 import {AMessageWithUpdates} from "../../messages/a-message-with-updates";
 import {GetTimeResponse} from "../../messages/get-time-response";
 import {AUpdateableModel} from "./a-updateable-model";
+import {GetRaceStatusResponse} from "../../messages/get-race-status.response";
 
 export enum CarType {
   human,
@@ -15,8 +16,13 @@ export type Lap = {
 }
 
 export class CarModel extends AUpdateableModel {
+  private _fuel: number = 0
   private _laps: Lap[] = []
   private _lastMeasuredTime: number | undefined
+
+  public get fuel(): number {
+    return this._fuel
+  }
 
   public get laps(): Lap[] {
     return this._laps;
@@ -56,14 +62,12 @@ export class CarModel extends AUpdateableModel {
 
   public update(message: AMessageWithUpdates): MqttValue[] {
     const ret: MqttValue[] = []
-
-    //TODO handle fuel changes
+    const id: string = this.generateMqttId()
 
     if (message instanceof GetTimeResponse) {
       const time = (message as GetTimeResponse).currentTime
 
       if (this._lastMeasuredTime !== undefined) { //a full lap was driven
-        const id: string = this.generateMqttId()
         const lapTime: number = time - this._lastMeasuredTime
         const lap: Lap = {lapNumber: this.numberOfLaps + 1, time: lapTime}
         const oldFastestLap: Lap | undefined = this.getFastestLap()
@@ -94,6 +98,13 @@ export class CarModel extends AUpdateableModel {
       }
 
       this._lastMeasuredTime = time
+    } else if (message instanceof GetRaceStatusResponse) {
+      if (this.fuel !== message.carFuels[this.id -1]) {
+        this._fuel = message.carFuels[this.id -1]
+        ret.push(new MqttValue(
+          `Home/carrera/Car/${id}/Fuel`,
+          this.fuel + ""))
+      }
     }
 
     return ret;

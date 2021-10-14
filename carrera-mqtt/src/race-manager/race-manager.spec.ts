@@ -70,7 +70,7 @@ describe("race manager", () => {
 
     it("should not have an active race when receiving race update", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, false, 0, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], false, 0, FuelMode.noFuel))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/FuelMode", "0"),
         new MqttValue("Home/carrera/Race/1/SignalLightState", "0"),
@@ -83,7 +83,7 @@ describe("race manager", () => {
 
     it("should start race when receiving a message with active race", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, true, 0, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], true, 0, FuelMode.noFuel))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/IsRaceActive", "1")
       ])
@@ -94,7 +94,7 @@ describe("race manager", () => {
 
     it("should update signal light state", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, true, 1, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], true, 1, FuelMode.noFuel))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/SignalLightState", "1")
       ])
@@ -105,7 +105,7 @@ describe("race manager", () => {
 
     it("should update fuel mode", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, true, 1, FuelMode.normalMode))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], true, 1, FuelMode.normalMode))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/FuelMode", "1")
       ])
@@ -259,7 +259,7 @@ describe("race manager", () => {
 
     it("should have initial values", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, false, 0, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], false, 0, FuelMode.noFuel))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/FuelMode", "0"),
         new MqttValue("Home/carrera/Race/1/SignalLightState", "0"),
@@ -269,7 +269,7 @@ describe("race manager", () => {
 
     it("should have an active race", () => {
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, true, 0, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], true, 0, FuelMode.noFuel))
       ).to.be.eql([
         new MqttValue("Home/carrera/Race/1/IsRaceActive", "1")
       ])
@@ -284,7 +284,7 @@ describe("race manager", () => {
       afterRaceStopped.push(new MqttValue("Home/carrera/Race/1/IsRaceActive", "0"))
 
       expect(raceManager.update(
-        new GetRaceStatusResponse("does not matter", 0, 0, 0, 0, 0, 0, 0, false, 0, FuelMode.noFuel))
+        new GetRaceStatusResponse("does not matter", 0, [0, 0, 0, 0, 0, 0, 0, 0], false, 0, FuelMode.noFuel))
       ).to.be.eql(afterRaceStopped)
     })
   })
@@ -303,6 +303,35 @@ describe("race manager", () => {
       expect(raceManager.update(
         new GetTimeResponse("car 1 crosses line a second time with invalid time measurement", 0, 1, 500, 1)
       )).to.be.eql(initialMqttMessages)
+    })
+  })
+
+  describe("car fuels", () => {
+    const raceManager: RaceManager = new RaceManager()
+
+    it("should not generate fuel updates when first setting car fuels", () => {
+      expect(raceManager.update(
+        new GetRaceStatusResponse("first fuels message", 0, [0, 0, 0, 0, 0, 0, 0, 0], true, 0, 0)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Race/1/FuelMode", "0"),
+        new MqttValue("Home/carrera/Race/1/SignalLightState", "0"),
+        new MqttValue("Home/carrera/Race/1/IsRaceActive", "1"),
+      ])
+    })
+
+    it("should not generate updates when first setting car fuels", () => {
+      expect(raceManager.update(
+        new GetRaceStatusResponse("first fuels message", 0, [1, 2, 3, 4, 5, 6, 7, 8], true, 0, 0)
+      )).to.be.eql([
+        new MqttValue("Home/carrera/Car/1/Fuel", "1"),
+        new MqttValue("Home/carrera/Car/2/Fuel", "2"),
+        new MqttValue("Home/carrera/Car/3/Fuel", "3"),
+        new MqttValue("Home/carrera/Car/4/Fuel", "4"),
+        new MqttValue("Home/carrera/Car/5/Fuel", "5"),
+        new MqttValue("Home/carrera/Car/6/Fuel", "6"),
+        new MqttValue("Home/carrera/Car/ghostcar/Fuel", "7"),
+        new MqttValue("Home/carrera/Car/pacecar/Fuel", "8"),
+      ])
     })
   })
 

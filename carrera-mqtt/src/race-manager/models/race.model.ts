@@ -80,9 +80,10 @@ export class RaceModel extends AUpdateableModel {
     const ret: MqttValue[] = []
 
     if (message instanceof GetRaceStatusResponse) {
-      this.updateRaceStatus(message, ret);
+      this.updateRaceStatus(message, ret)
+      this.updateCarFuels(message, ret)
     } else if (message instanceof GetTimeResponse) {
-      this.updateRaceTimes(message, ret);
+      this.updateRaceTimes(message, ret)
     }
 
     return ret
@@ -113,6 +114,12 @@ export class RaceModel extends AUpdateableModel {
       ret.push(new MqttValue(
         `Home/carrera/Race/${this.id}/IsRaceActive`,
         this._isRaceActive ? "1" : "0"))
+    }
+  }
+
+  private updateCarFuels(message: GetRaceStatusResponse, ret: MqttValue[]) {
+    for (const car of this.cars) {
+      ret.push(...car.update(message))
     }
   }
 
