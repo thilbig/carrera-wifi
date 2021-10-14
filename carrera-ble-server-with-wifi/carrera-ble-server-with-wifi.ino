@@ -22,10 +22,6 @@ EspMQTTClient mqttClient(
 
 void onConnectionEstablished() {
   Serial.println("Connected to mqtt broker.");
-
-  mqttClient.subscribe("mytopic/test", [] (const String &payload)  {
-    Serial.println(payload);
-  });
 }
 
 
@@ -41,12 +37,20 @@ void setup() {
 }
 
 void loop() {
+  sendPingIfNeccessary();
   mqttClient.loop();
   serialLoop();
 
   digitalWrite(BLE_CONNECTED_DEBUG_LED_PIN, bleConnected);
   digitalWrite(MQTT_CONNECTED_DEBUG_LED_PIN, mqttClient.isConnected());
   digitalWrite(CARRERA_CONNECTED_DEBUG_LED_PIN, carreraConnected);
+
+  if (!mqttClient.isConnected()) {
+    Serial.println("isWifiConnected: " + String(mqttClient.isWifiConnected()));
+    Serial.println("isMqttConnected: " + String(mqttClient.isMqttConnected()));
+    Serial.println("getConnectionEstablishedCount:" + String(mqttClient.getConnectionEstablishedCount()));
+    delay(500);
+  }
 
   //if no device is connected using ble we have to ask for race time on our own
   if (!bleConnected) { 

@@ -74,6 +74,8 @@ To provide the WIFI credentials and the location of your MQTT broker create a fi
 To build the arduino code you need to install the library `EspMQTTClient` using the build in library manager or from [here](https://github.com/plapointe6/EspMQTTClient). 
 This library is responsible for the communication with the MQTT Broker and simplifies the code a lot.
 
+I had some problems with my mqtt broker resetting the connection. Increasing the keepalive time by calling the method `setKeepAlive` did not work, so I decided to implement a ping that is send every second.
+
 ## Message decoder
 The serial messages received from the CCU are not decoded directly on the hardware, instead I implemented a service that takes care of that.
 This service is implemented as a node script and written in Typescript, the source code can be found in the `carrera-mqtt` folder.
